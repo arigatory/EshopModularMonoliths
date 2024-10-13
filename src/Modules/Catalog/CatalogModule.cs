@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
-using Shared.Data;
 
 namespace Catalog;
 
@@ -14,6 +13,7 @@ public static class CatalogModule
 
         services.AddDbContext<CatalogDbContext>(options =>
             options.UseNpgsql(connectionString));
+        services.AddScoped<IDataSeeder, CatalogDataSeeder>();
 
         return services;
     }
@@ -30,3 +30,4 @@ public static class CatalogModule
         return app;
     }
 }
+

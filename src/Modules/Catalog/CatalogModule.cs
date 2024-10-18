@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Builder;
 using Shared.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 

@@ -1,20 +1,15 @@
+using Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddCarterWithAssemblies(typeof(CatalogModule).Assembly);
+//common services: carter, mediatr, fluentvalidation, masstransit
+var catalogAssembly = typeof(CatalogModule).Assembly;
+var basketAssembly = typeof(BasketModule).Assembly;
 
-// Configure CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});
+builder.Services.AddCarterWithAssemblies(catalogAssembly, basketAssembly);
+builder.Services.AddMediatRWithAssemblies(catalogAssembly, basketAssembly);
 
 builder.Services
     .AddCatalogModule(builder.Configuration)
@@ -25,12 +20,9 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
-// Use CORS
-app.UseCors("AllowAll");
-
 app.MapCarter();
 app.UseSerilogRequestLogging();
-app.UseExceptionHandler(o => {});
+app.UseExceptionHandler(o => { });
 
 app
     .UseCatalogModule()

@@ -12,14 +12,7 @@ public static class CatalogModule
      IConfiguration configuration)
     {
         // Application
-        services.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-        });
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
+       
         // Data
         var connectionString = configuration.GetConnectionString("Database");
 

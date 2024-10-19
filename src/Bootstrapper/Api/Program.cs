@@ -5,6 +5,17 @@ builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(conte
 
 builder.Services.AddCarterWithAssemblies(typeof(CatalogModule).Assembly);
 
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 builder.Services
     .AddCatalogModule(builder.Configuration)
     .AddBasketModule(builder.Configuration)
@@ -13,6 +24,9 @@ builder.Services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
+
+// Use CORS
+app.UseCors("AllowAll");
 
 app.MapCarter();
 app.UseSerilogRequestLogging();

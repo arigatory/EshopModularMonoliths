@@ -1,7 +1,3 @@
-using System.Reflection;
-using Basket.Basket.Models;
-using Microsoft.EntityFrameworkCore;
-
 namespace Basket.Data;
 
 public class BasketDbContext(DbContextOptions<BasketDbContext> options) : DbContext(options)

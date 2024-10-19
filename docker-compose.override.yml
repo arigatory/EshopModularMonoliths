@@ -19,14 +19,14 @@ services:
   #   ports:
   #     - "6379:6379"
 
-  # seq:
-  #   container_name: seq
-  #   environment:
-  #     - ACCEPT_EULA=Y
-  #   restart: always
-  #   ports:
-  #     - "5341:5341"
-  #     - "9091:80"
+  seq:
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    restart: always
+    ports:
+      - "5341:5341"
+      - "9091:80"
 
   # messagebus:
   #   container_name: messagebus

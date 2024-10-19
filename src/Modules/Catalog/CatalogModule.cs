@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Shared.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Shared.Behaviors;
 
 namespace Catalog;
 
@@ -14,7 +15,10 @@ public static class CatalogModule
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         // Data
         var connectionString = configuration.GetConnectionString("Database");

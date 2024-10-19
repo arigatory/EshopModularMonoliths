@@ -4,15 +4,14 @@ services:
   eshopdb:
     image: postgres
 
-volumes:
-  postgres_eshopdb:
+
 
 
   # distributedcache:
   #   image: redis
 
-  # seq:
-  #   image: datalust/seq:latest
+  seq:
+    image: datalust/seq:latest
 
   # messagebus:
   #   image: rabbitmq:management
@@ -25,4 +24,5 @@ volumes:
   #   build:
   #     context: .
   #     dockerfile: Bootstrapper/Api/Dockerfile
-
+volumes:
+  postgres_eshopdb:

@@ -8,7 +8,7 @@ global using FluentValidation;
 global using Microsoft.AspNetCore.Builder;
 
 global using Basket.Basket.Dtos;
-global using Shared.CQRS;
+global using Shared.Contracts.CQRS;
 global using Basket.Basket.Exceptions;
 global using Mapster;
 

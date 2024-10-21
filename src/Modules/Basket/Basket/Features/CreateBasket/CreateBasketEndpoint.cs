@@ -27,6 +27,7 @@ public class CreateBasketEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create Basket")
         .WithDescription("Create Basket")
-        .RequireAuthorization();
+        //.RequireAuthorization()
+;
     }
 }

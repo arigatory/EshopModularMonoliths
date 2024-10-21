@@ -7,8 +7,8 @@ services:
 
 
 
-  # distributedcache:
-  #   image: redis
+  distributedcache:
+    image: redis
 
   seq:
     image: datalust/seq:latest

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Data;
@@ -14,6 +15,8 @@ public static class BasketModule
         // Api
 
         // App
+        services.AddScoped<IBasketRepository, BasketRepository>();
+        services.Decorate<IBasketRepository, CachedBasketRepository>();
 
         // Infra
         var connectionString = configuration.GetConnectionString("Database");

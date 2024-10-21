@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Shared.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Shared.Behaviors;
 
 namespace Catalog;
 

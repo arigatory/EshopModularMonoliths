@@ -1,5 +1,3 @@
-using Shared.Extensions;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
@@ -15,6 +13,9 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
+
+builder.Services
+    .AddMassTransitWithAssemblies(catalogAssembly, basketAssembly);
 
 builder.Services
     .AddCatalogModule(builder.Configuration)

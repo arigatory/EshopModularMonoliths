@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
   eshopdb:
     container_name: eshopdb
@@ -28,16 +26,16 @@ services:
       - "5341:5341"
       - "9091:80"
 
-  # messagebus:
-  #   container_name: messagebus
-  #   hostname: ecommerce-mq
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=guest
-  #     - RABBITMQ_DEFAULT_PASS=guest
-  #   restart: always
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
+  messagebus:
+    container_name: messagebus
+    hostname: ecommerce-mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   # identity:
   #   container_name: identity

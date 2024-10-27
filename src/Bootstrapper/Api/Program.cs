@@ -1,3 +1,5 @@
+using Keycloak.AuthServices.Authentication;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
@@ -5,9 +7,10 @@ builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(conte
 //common services: carter, mediatr, fluentvalidation, masstransit
 var catalogAssembly = typeof(CatalogModule).Assembly;
 var basketAssembly = typeof(BasketModule).Assembly;
+var orderingAssembly = typeof(OrderingModule).Assembly;
 
-builder.Services.AddCarterWithAssemblies(catalogAssembly, basketAssembly);
-builder.Services.AddMediatRWithAssemblies(catalogAssembly, basketAssembly);
+builder.Services.AddCarterWithAssemblies(catalogAssembly, basketAssembly, orderingAssembly);
+builder.Services.AddMediatRWithAssemblies(catalogAssembly, basketAssembly, orderingAssembly);
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -15,7 +18,10 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services
-    .AddMassTransitWithAssemblies(builder.Configuration, catalogAssembly, basketAssembly);
+    .AddMassTransitWithAssemblies(builder.Configuration, catalogAssembly, basketAssembly, orderingAssembly);
+
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
 
 builder.Services
     .AddCatalogModule(builder.Configuration)
@@ -30,10 +36,13 @@ app.MapCarter();
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler(o => { });
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app
     .UseCatalogModule()
     .UseBasketModule()
-    .UseOrderModule();
+    .UseOrderingModule();
 
 
 app.Run();
